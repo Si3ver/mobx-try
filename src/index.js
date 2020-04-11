@@ -8,6 +8,7 @@ class Animal {
 }
 
 class Dog extends Animal {
+  food = 'bone'
   name() {
     return 'Dog'
   }
