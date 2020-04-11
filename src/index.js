@@ -1,30 +1,18 @@
-function Animal() {}
-function Dog() {}
-
-Object.defineProperties(Animal.prototype, {
-  name: {
-    value() {
-      return 'Animal'
-    }
-  },
-  say: {
-    value() {
-      return `I'm ${this.name()}`
-    } 
+class Animal {
+  name() {
+    return 'animal'
   }
-})
-
-Dog.prototype = Object.create(Animal.prototype, {
-  constructor: {
-    value: Dog,
-    enumerable: false
-  },
-  name: {
-    value() {
-      return 'Dog'
-    }
+  say() {
+    return `I'm ${this.name()}`
   }
-})
+}
+
+class Dog extends Animal {
+  name() {
+    return 'Dog'
+  }
+}
 
 document.write(new Dog().say())
 console.log(Dog.prototype.constructor)
+console.log(new Dog() instanceof Animal)
