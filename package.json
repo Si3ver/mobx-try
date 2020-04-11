@@ -18,5 +18,8 @@
     "babel-preset-env": "^1.7.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "mobx": "^4.15.4"
   }
 }
