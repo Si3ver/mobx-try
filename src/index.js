@@ -1,27 +1,4 @@
-import { observable, isArrayLike } from 'mobx'
-
-// Array
-let arr = observable(['a', 'b', 'c'])
-console.log(arr, Array.isArray(arr), isArrayLike(arr))
-
-// Object
-let obj = observable({ a: 1, b: 2 })
-console.log(obj)
-
-// hash Map
-let map = observable(new Map())
-map.set('a', 1)
-console.log(map)
-
-// Base Type
-var num = observable.box(20),
-  str = observable.box('hello'),
-  bool = observable.box(true)
-console.log(num, str, bool, num.get(), str.get(), bool.get())
-num.set(50)
-str.set('world')
-bool.set(false)
-console.log(num.get(), str.get(), bool.get())
+import { observable, isArrayLike, computed, autorun, when, reaction } from 'mobx'
 
 class Store {
   @observable array = []
@@ -31,5 +8,26 @@ class Store {
   @observable string = 'hello'
   @observable number = 20
   @observable bool = false
+
+  @computed get mixed() {
+    return store.string + '/' + store.number
+  }
 }
-console.log(Store)
+var store = new Store()
+
+// // autorun
+// autorun(() => {
+//   console.log(store.mixed)
+// })
+// store.string = 'world'
+// store.number = 30
+
+// // when
+// when(() => store.bool, () => console.log("It's true"))
+// store.bool = true
+
+
+// reaction
+reaction(() => [store.string, store.number], arr => console.log(arr.join(',')))
+store.string = 'world'
+store.number = 30
