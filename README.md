@@ -24,3 +24,7 @@
 
 + `action` 便于复用
 + `runInAction` 命令式地运行一个 action
+
+## mobx-react
+
++ `observer` 装饰 React 组件
