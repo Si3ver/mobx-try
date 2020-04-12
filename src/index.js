@@ -1,4 +1,4 @@
-import { observable, isArrayLike, computed, autorun, when, reaction } from 'mobx'
+import { observable, isArrayLike, computed, autorun, when, reaction, action, runInAction } from 'mobx'
 
 class Store {
   @observable array = []
@@ -11,6 +11,11 @@ class Store {
 
   @computed get mixed() {
     return store.string + '/' + store.number
+  }
+
+  @action.bound bar() {
+    store.string = 'world'
+    this.number = 30
   }
 }
 var store = new Store()
@@ -29,5 +34,13 @@ var store = new Store()
 
 // reaction
 reaction(() => [store.string, store.number], arr => console.log(arr.join(',')))
-store.string = 'world'
-store.number = 30
+// store.string = 'world'
+// store.number = 30
+
+var bar = store.bar
+bar()
+
+runInAction('modify', () => {
+  store.string = 'world222'
+  store.number = 40
+})
